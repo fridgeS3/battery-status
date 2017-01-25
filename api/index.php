@@ -176,11 +176,25 @@ class Battery_API {
         $chargingActive = intval( $attributes->chargingSystemStatus === 'CHARGINGACTIVE' );
 
         $chargingTimeRemaining = intval( $attributes->chargingTimeRemaining );
+ 		$chargingTimeFinished = time();
+		$chargingTimeFinished = date( 'H:i' , $chargingTimeFinished + $chargingTimeRemaining * 60 );
         $chargingTimeRemaining = ( $chargingTimeRemaining ? ( date( 'H:i', mktime( 0, $chargingTimeRemaining ) ) . ' h' ) : '--:--' );
 
         $stateOfCharge = number_format( round( $attributes->soc, 2 ), 2, ',', '.');
         $stateOfChargeMax = number_format( round( $attributes->socMax, 2 ), 2, ',', '.');
 
+        $carDoorLock = strval( $attributes->door_lock_state );
+        if($carDoorLock == 'SECURED') 
+        	{
+        	$carDoorLock = 'Ja';
+        	}
+        else 
+        	{
+        	$carDoorLock = 'Nein';
+        	}
+        
+        $carMileage = intval( $attributes->mileage );
+     
         // Send Header
         header('Access-Control-Allow-Origin: https://' . $_SERVER['SERVER_NAME'] );
         header('Content-Type: application/json; charset=utf-8');
@@ -194,8 +208,12 @@ class Battery_API {
                     'chargingLevel' => $chargingLevel,
                     'chargingActive' => $chargingActive,
                     'chargingTimeRemaining' => $chargingTimeRemaining,
+                    'chargingTimeFinished' => $chargingTimeFinished,
                     'stateOfCharge' => $stateOfCharge,
-                    'stateOfChargeMax' => $stateOfChargeMax
+                    'stateOfChargeMax' => $stateOfChargeMax,
+                    'carDoorLock' => $carDoorLock,
+                    'carMileage' => $carMileage
+
                 )
             )
         );
@@ -204,3 +222,5 @@ class Battery_API {
 
 
 new Battery_API();
+
+?>
