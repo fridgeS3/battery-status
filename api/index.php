@@ -176,10 +176,18 @@ class Battery_API {
         $chargingActive = intval( $attributes->chargingSystemStatus === 'CHARGINGACTIVE' );
 
         $chargingTimeRemaining = intval( $attributes->chargingTimeRemaining );
- 		$chargingTimeFinished = time();
-		$chargingTimeFinished = date( 'H:i' , $chargingTimeFinished + $chargingTimeRemaining * 60 );
-        $chargingTimeRemaining = ( $chargingTimeRemaining ? ( date( 'H:i', mktime( 0, $chargingTimeRemaining ) ) . ' h' ) : '--:--' );
-
+	if($chargingTimeRemaining <> 0)
+		{
+		$chargingTimeFinished = time();
+		$chargingTimeFinished = (date( 'H:i' , $chargingTimeFinished + $chargingTimeRemaining * 60 ) . ' Uhr');
+	       	$chargingTimeRemaining = ( $chargingTimeRemaining ? ( date( 'H:i', mktime( 0, $chargingTimeRemaining ) ) . ' Stunden' ) : '--:--' );
+		}
+	else 
+		{
+		$chargingTimeFinished = '--:--';
+        	$chargingTimeRemaining = '--:--';
+        	}
+		
         $stateOfCharge = number_format( round( $attributes->soc, 2 ), 2, ',', '.');
         $stateOfChargeMax = number_format( round( $attributes->socMax, 2 ), 2, ',', '.');
 
