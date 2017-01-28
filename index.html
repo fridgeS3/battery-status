@@ -63,6 +63,12 @@
                 line-height: 24px;
                 letter-spacing: 1px;
             }
+            h3 {
+                font-size: 19px;
+                font-weight: 200;
+                line-height: 21px;
+                letter-spacing: 1px;
+            }
             h4 {
                 color: var(--color-white-light);
                 font-size: 14px;
@@ -85,7 +91,7 @@
             }
             footer {
                 width: 100%;
-                height: 22%;
+                height: 35%;
                 bottom: 0;
                 position: absolute;
 
@@ -107,7 +113,7 @@
             }
 
             main {
-                top: 50%;
+                top: 40%;
                 left: 50%;
                 width: 200px;
                 height: 200px;
@@ -252,10 +258,10 @@
 
         <script id="header-tmpl" type="text/x-dot-template">
             <h2>
-                Battery Status
+                Status BMW i3
             </h2>
             <h4>
-                {{=it.updateTime}}
+                Letzte Aktualisierung {{=it.updateTime}}
             </h4>
         </script>
 
@@ -275,7 +281,16 @@
         <script id="footer-tmpl" type="text/x-dot-template">
             <section>
                 <h4>
-                    Range
+                    Ladung aktuell / max
+                </h4>
+                <h3>
+                    {{=it.stateOfCharge}} / {{=it.stateOfChargeMax}} kWh
+                </h3>
+            </section>
+
+            <section>
+                <h4>
+                    Reichweite
                 </h4>
                 <h2>
                     {{=it.electricRange}} km
@@ -284,30 +299,40 @@
 
             <section>
                 <h4>
-                    SoC
+                    Fertig geladen in
                 </h4>
-                <h2>
-                    {{=it.stateOfCharge}} kWh
-                </h2>
-            </section>
-
-            <section>
-                <h4>
-                    Charged
-                </h4>
-                <h2>
+                <h3>
                     {{=it.chargingTimeRemaining}}
-                </h2>
+                </h3>
             </section>
 
             <section>
                 <h4>
-                    SoC Max
+                    Fertig geladen um
                 </h4>
-                <h2>
-                    {{=it.stateOfChargeMax}} kWh
-                </h2>
+                <h3>
+                    {{=it.chargingTimeFinished}}
+                </h3>
             </section>
+
+            <section>
+                <h4>
+                    Kilometerstand
+                </h4>
+                <h3>
+                    {{=it.carMileage}} km
+                </h3>
+            </section>
+
+            <section>
+                <h4>
+                    Abgeschlossen
+                </h4>
+                <h3>
+                    {{=it.carDoorLock}}
+                </h3>
+            </section>
+
         </script>
     </head>
 
