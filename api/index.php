@@ -174,12 +174,16 @@ class Battery_API {
         $electricRange = intval( $attributes->beRemainingRangeElectricKm );
         $chargingLevel = intval( $attributes->chargingLevelHv );
         $chargingActive = intval( $attributes->chargingSystemStatus === 'CHARGINGACTIVE' );
+        $carMileage = intval( $attributes->mileage );
 
         $chargingTimeRemaining = intval( $attributes->chargingTimeRemaining );
         $chargingTimeRemaining = ( $chargingTimeRemaining ? ( date( 'H:i', mktime( 0, $chargingTimeRemaining ) ) . ' h' ) : '--:--' );
+        $chargingTimeFinished = intval( $attributes->chargingTimeFinished );
+		$chargingTimeFinished = ( $chargingTimeFinished ? ( date( 'H:i', mktime( 0, $chargingTimeFinished ) ) . ' h' ) : '--:--' );
 
         $stateOfCharge = number_format( round( $attributes->soc, 2 ), 2, ',', '.');
         $stateOfChargeMax = number_format( round( $attributes->socMax, 2 ), 2, ',', '.');
+        $carDoorLock = ( $attributes->door_lock_state );
 
         // Send Header
         header('Access-Control-Allow-Origin: https://' . $_SERVER['SERVER_NAME'] );
@@ -194,8 +198,11 @@ class Battery_API {
                     'chargingLevel' => $chargingLevel,
                     'chargingActive' => $chargingActive,
                     'chargingTimeRemaining' => $chargingTimeRemaining,
+                    'chargingTimeFinished' => $chargingTimeFinished,
                     'stateOfCharge' => $stateOfCharge,
-                    'stateOfChargeMax' => $stateOfChargeMax
+                    'stateOfChargeMax' => $stateOfChargeMax,
+                    'carMileage' => $carMileage,
+                    'carDoorLock' => $carDoorLock
                 )
             )
         );
