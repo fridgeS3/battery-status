@@ -178,9 +178,9 @@ class Battery_API {
 
         $chargingTimeRemaining = intval( $attributes->chargingTimeRemaining );
         $chargingTimeRemaining = ( $chargingTimeRemaining ? ( date( 'H:i', mktime( 0, $chargingTimeRemaining ) ) . ' h' ) : '--:--' );
-        $chargingTimeFinished = intval( $attributes->chargingTimeFinished );
-		$chargingTimeFinished = ( $chargingTimeFinished ? ( date( 'H:i', mktime( 0, $chargingTimeFinished ) ) . ' h' ) : '--:--' );
-
+        $chargingTimeFinished = time();
+        $chargingTimeFinished = (date( 'H:i' , $chargingTimeFinished + $chargingTimeRemaining * 60 ) . ' Uhr');
+	
         $stateOfCharge = number_format( round( $attributes->soc, 2 ), 2, ',', '.');
         $stateOfChargeMax = number_format( round( $attributes->socMax, 2 ), 2, ',', '.');
         $carDoorLock = ( $attributes->door_lock_state );
